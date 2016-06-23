@@ -21,8 +21,10 @@ include 'includes/connect.php';
 
 	echo ' logged out!</br>';
 	echo 'Goodbye!</br>Redirecting...';
-	echo '<META HTTP-EQUIV="Refresh" Content="3; URL=index.php">';
+echo '<META HTTP-EQUIV="Refresh" Content="1 ;URL=index.php">';
+        header("refresh:3;url=index.php");
 
+echo "<br>If you have not been redirected in 3 seconds, click <a href='index.php'>here</a>";
    
 	/*
     

@@ -1,140 +1,195 @@
 
-
-<?php 
-// this file will query the database using the email the user provided
-// then we query db with the email against person
+<?php
 
 include 'head.php';
+include 'includes/connect.php';
+include 'includes/goBack.php';
+// div tags here
+
+?>
 
 
 
-$conn = mysqli_connect("localhost", "root", "root", "db1") or die("database connection is not working");
+<div class="container">
+  <form class="form-horizontal" role="form">
+    <fieldset>
+       
+
+<?php
+/////////////// 
+            
+           
+            
+$conn = mysqli_connect($host, $user, $pass, $db) or die("database connection is not working");
 	/* check connection */
 	if(!$conn) {
 		die("Connection failed: " . mysqli_connect_error());
 	}
-	
+
+        
+/* 
+take user's email and confirmation code 
+then query person table using email to get customer's info
+*/
+        
 
 if(isset($_POST["Submit"]))
-{ 
+{
     $email = mysqli_real_escape_string($conn,$_POST['resv_email']);
-    $ccode = mysqli_real_escape_string($conn,$_POST['code']);
+    $confirmCode = mysqli_real_escape_string($conn,$_POST['code']);
 
-    echo "email is: ".$email. "<br />";
-    
- //#### escape string when possible ###
-
-//we get the user's id using their email then we get the reservation using that id
-$sql_user_id = "SELECT user_id FROM person WHERE email = '$email'";
-echo "My SQL command is: " . $sql_user_id. "<br />";
-
-    if ($id_result = $conn->query($sql_user_id)) {
-
-    /* fetch associative array */
-    while ($row = $id_result->fetch_assoc()) {
-        $user_id_value = $row['user_id'];
         
-        echo $user_id_value."<br>";
-    }
-
-    /* free result set */
-    //$result->free();
-    }
+$getID_sql = $conn->query("SELECT * FROM person WHERE email = '$email'");
     
+  // / if($getID_sql){
     
-    
-    
-    /*
-       if (mysqli_num_rows($id_result) <= 0)
-	{
-		echo "Email is not found in our records!.<br />";
-	} else {
-		while ($row = mysqli_fetch_assoc($id_result)){
-            $u_id = $row['user_id']
-            //echo "user_id = ". $u_id;
-                $id_result->free();
-		}
-    }
-      */
-   
-    
-    
-// then we get reservation info using the user's id we stored in $user_id_value.
-
-$sql_user_resv = "SELECT * FROM reservation WHERE user_id = '$user_id_value'";
-echo "My SQL command is: " . $sql_user_resv. "<br />";
-//$sql_user_idt = $conn->query("SELECT user_id FROM `person` WHERE email = '$email'");
-echo "here" ."<br>";
-
-    
-    
-if ($result = $conn->query($sql_user_resv)) {
-    /* fetch associative array */
-    while ($row1 = $result->fetch_assoc()) {
-       echo "summary:" . $row1['resv_id'];
+         while($row = mysqli_fetch_assoc($getID_sql)){
+             
+            $userID = $row['user_id'];
+            $firstName = $row['fname'];
+            $lastName = $row['lname'];
+            $phone = $row['phone'];
+             
         
-        }
+         }
+    
+   /* }
+    else{ // die when no query found
+        die("Your email is not found in our database");
+    }*/
+ 
+    
+    
+/* 
+then query reservation table using userID to get reservation info
+*/  
 
-            
-    }
+$result_resv = $conn->query("SELECT * FROM reservation WHERE user_id = '$userID' AND confirmation_code = '$confirmCode'");
+
     
+    while($rows = mysqli_fetch_assoc($result_resv)){
     
-/*
-$result = mysqli_query($conn, $sql_user_resv);
-//TODO:output summary for user's reservation
+    $resID = $rows['resv_id'];
+    $uID = $rows['user_id'];
+    $resV = $rows['resv_vehicle_id'];
+        
+    $pickLoc = $rows['pick_location'];
+    $returnLoc = $rows['return_location']; 
+        
+    $pickDate = $rows['pick_date'];
+    $pickTime = $rows['pick_time'];
+        
+    $returnDate = $rows['return_date'];
+    $returnTime = $rows['return_time'];
+    $status = $rows['status'];
+    
+    //$uID = $rows['return_date'];
    
-    // TODO:format the table using div tags
+    }// end of 1st while loop
+
+
+//--------------
     
-    if (mysqli_num_rows($result)<=0)
-	{
-	
-		echo "No Records Found.<br />";
-	
-	} else {
-		echo "<table border=1>";
-		echo "<tr><th>resv_id</th><th>user_id</th><th>vehicle</th><th>location</th><th>date</th></tr>";
-		while ($row = mysqli_fetch_assoc($result))
-			
-		{
-			
-			echo "<tr>";
-			
-		echo "<td>" . $row['resv_id'] . "</td><td>" . $row['user_id']. "</td><td>". $row['resv_vehicle_id'] . "</td>
-			<td>". $row['pick_location'] . "</td>";
-			
-			//$qu= $row['q_id'];
-			// echo htmlspecialchars($qu);
-			echo "</tr>";
-		}
-		echo "</table>";
+/* 
+then query vehicle table using reserved car id to get vehicle's info
+*/
+       
+$result1 = $conn->query("SELECT * FROM vehicle WHERE vehicle_id = '$resV'");
+
+
+ while($rows = mysqli_fetch_assoc($result1)){
+     
+     
+    $Make = $rows['make'];
+    $Model = $rows['model'];
+    $Year = $rows['year'];
+        
+    $Type = $rows['type'];
+    $Price = $rows['price']; 
+        
+    $Des = $rows['description'];
+    $pic = $rows['pic_link'];
     
-    }
-    
-    
-   
-    */
-    
-    
-    
-    
-    
-    
-    
-//end of if
+
+     
+     
+//echo $pic;
 }
 
 
+$row_nums = $result_resv->num_rows;
+$result = mysqli_query($conn, $sql_management);
 
+if($row_nums > 0){
+    //if(!$getID_sql){
+        ?>
+        
+        <div class="alert alert-success">
+        <?php include 'includes/print.php';?>
+        <h4 class="Rform">Reservation Summary</h4> 
+        </div>
 
+        <?php
+        echo "<h3><b>Confirmation Code : #". $confirmCode . " - Status: " . $status ."</b></h3><br>";
+        echo "<legend></legend>";
+        echo "<p><b>Customer: </b>" . $firstName . " " . $lastName . " </p>";
+        echo "<b>Email: </b>".$email. "<br>";
+        echo "<p><b>Phone: </b>" . $phone . "</b></p>";
+        echo "<p><b>Pickup Location: </b>". $pickLoc ."<br> <b>Return Location: </b>".$returnLoc ."</p>";
+        echo "<p><b>Pickup Date: </b>". $pickDate ." <b>Pickup Time: </b>".$pickTime ."</p>";
+        echo "<p><b>Return Date: </b>". $returnDate ." <b>Return Time: </b>".$returnTime ."</p>";
+        echo "<p><b>Vehicle: </b>". $Year ." ". $Make ." ".$Model . " ". $Type ."</p><br>";
+        echo "<p><b> Description:</b> ".$Des ."</p>";
+        echo "<legend> </legend>";
+    
+    
+        ?>
+          <img class="img-responsive" src="<?php echo $pic; ?>">
 
+        <?php
+    
+      
+    
+//}
+    }else{
+        
+        ?>
+         <div class="alert alert-warning">
+         <h4 class="Rform">No reservation found!</h4> 
+        </div>
+        
+        <?php
+        header("refresh:3;url=index.php");
+    
+        }
 
+        ?>
+
+        
+        
+<?php   
 
 mysqli_close($conn);
 
+}
+else{
 
-
-
-
+    // redirect user here
+    ?>
+         <div class="alert alert-warning">
+         <h4 class="Rform">No reservation found!</h4> 
+        </div>
+        
+        <?php
+        header("refresh:3;url=index.php");
+    
+    }
+        ?>
+       
+      </fieldset></form>
+</div>
+        
+<?php
 
 include 'footer.php';
 

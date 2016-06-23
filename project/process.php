@@ -13,7 +13,7 @@ session_start();
 
 <?php
 
-//TODO: condition to check if user is logged in to continue with the process.
+// condition to check if user is logged in to continue with the process.
 
 	if( isset($_SESSION['user_id'])){
 	
@@ -37,11 +37,6 @@ session_start();
 
 
 ?>
-
-            
-            
-            
-            
             
 <div id="featured" class="container">
     <div class="ResvBox">
@@ -72,7 +67,7 @@ then query person table using email to get customer's info
 
 if(isset($_POST["Reserve"]))
 {
-    //take input
+    
     $resvlocation = mysqli_real_escape_string($conn,$_POST['loc']);
     $resvDate = mysqli_real_escape_string($conn,$_POST['pickDate']);
     $resvTime = mysqli_real_escape_string($conn,$_POST['pickTime']);
@@ -81,14 +76,13 @@ if(isset($_POST["Reserve"]))
     $Age = mysqli_real_escape_string($conn,$_POST['age']);
     $returnLocation = mysqli_real_escape_string($conn,$_POST['returnLoc']);
     
-    
     echo "Pickup Location: " . $resvlocation;
-    echo "<br> Date: " . $resvDate;
-    echo "<br> Time: " . $resvTime;
-    echo "<br><legend></legend>";
-    echo "<br> Return Location: " . $returnLocation;
-    echo "<br> Date: " . $retDate;
-    echo "<br> Time: " . $retTime;
+    echo "</br> Date: " . $resvDate;
+    echo "</br> Time: " . $resvTime;
+    echo "</br>-----------";
+    echo "</br> Return Location: " . $returnLocation;
+    echo "</br> Date: " . $retDate;
+    echo "</br> Time: " . $retTime;
     //---------------------------
     
     $_SESSION['resvlocation'] = $resvlocation;
@@ -173,8 +167,8 @@ $conn = mysqli_connect($host, $user, $pass, $db) or die("database connection is 
         <td> <?php echo $Year." ". $Make . " " . $Model; ?> </td>
         <td> <?php echo $Type; ?> </td>
         <td> <h3><?php echo "$".$Price; ?> </h3></td>
-        <td> <img class="img-responsive" src="<?php echo $img; ?>"> </td>
-          <td><button type="submit" name="choice" id="choice" value="<?php echo $veh_ID; ?>">Reserve</button></td>
+        <td> <img class="img-responsive" src="<?php echo $img; ?>"  height="170" width="292" > </td>
+        <td><button type="submit" name="choice" id="choice" value="<?php echo $veh_ID; ?>">Reserve</button></td>
       </tr>
 
 
@@ -182,7 +176,7 @@ $conn = mysqli_connect($host, $user, $pass, $db) or die("database connection is 
           
           
       //end of while loop
-}
+         }
 
 
 ?>

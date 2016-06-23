@@ -1,0 +1,45 @@
+body {
+    font-family:Verdana,sans-serif;
+    font-size:100%;
+     background-color:lightblue;
+}
+
+section, aside {
+	
+    float: none;
+    width: auto;
+}
+
+header,footer, article{
+    border:1px solid grey;
+    padding:1%;
+    background-color:white;
+    text-align: justify;
+}
+
+header,footer {
+    color:white;
+    background-color:#444;
+    margin-bottom:2.5px;
+}
+
+footer{
+	clear: both;
+}
+
+section h2, aside h2{
+    display: none;
+}
+
+article h2{
+   display: initial;
+   background-color: silver;
+   text-align: left;
+   width: 100%;
+}
+
+nav{
+	display:none;
+	margin: 0;
+	padding: 0;
+}

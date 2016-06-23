@@ -71,18 +71,11 @@ if (!$conn) {
     ?>
 
 
-  <a class="btn btn-info" href="index.php">Close</a>
-    
+
 <div class="container">
   <form class="form-horizontal" role="form" method="post" action="invoice.php">
     <fieldset>
-    Please keep this invoice for your records.  
-    <br>        
-      <legend>Your Reservation is Completed - CONFIRMATION CODE: #<?php echo $confirm_code; ?>
-      
-                          <?php include 'includes/print.php'; ?>
-      
-      </legend> 
+      <legend>Your Reservation is Completed - CONFIRMATION CODE: #<?php echo $confirm_code; ?></legend> 
       <div class="form-group">
         <label class="col-sm-3 control-label" for="card-holder-name">Name:</label>
         <div class="col-sm-9">
@@ -148,17 +141,11 @@ if (!$conn) {
         </div>
       </div>
 
+                    <?php include 'includes/print.php'; ?>
 
-        <img class="img-responsive" src="<?php echo $res_img; ?>"  height="170" width="292">
-                <legend></legend>
-        
-        
+        <img class="img-responsive" src="<?php echo $res_img; ?>">
 <?php
-echo "<br> Please take the time to rate our service";
-// this included module for rating the service
-include 'rating.php';
-
-
+        
 }
 else{
         ?>
@@ -173,6 +160,7 @@ else{
 ?>
       <div class="form-group">
         <div class="col-sm-offset-3 col-sm-9">
+Please keep this invoice for your records.          
         </div>
       </div>
     </fieldset>

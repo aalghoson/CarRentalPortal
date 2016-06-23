@@ -6,9 +6,9 @@
 //connect to database..
 
 	$host = "localhost";
-	$user = "root";
-	$pass = "root";
-	$db = "db1";
+	$user = "alghosoa";
+	$pass = "ahmad2";
+	$db = "alghosoa";
 	
 	$conn = mysqli_connect($host, $user, $pass, $db) or die("database connection is not working");
 	

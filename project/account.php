@@ -8,7 +8,7 @@ include 'includes/goBack.php';
 session_start();
 
 
-//TODO: condition to check if user is logged in to continue with the process.
+//condition to check if user is logged in to continue with the process.
 
 	if( isset($_SESSION['user_id'])){
 	
@@ -19,6 +19,7 @@ session_start();
 		echo '<META HTTP-EQUIV="Refresh" Content="1 ;URL=index.php">';
         header("refresh:3;url=signup.php");
 		die();
+        
 	}
 ?>
 
@@ -56,20 +57,21 @@ echo "Phone : " . $User_phone . "</i>" . "<br>";
         <input type="text" name="lname" id="lname" data-role="none" maxlength="10" placeholder="Lastname" required><br><br>   
 
         <b>New Address:</b><br>
-        <input type="text" name="location" id="location" data-role="none" placeholder="#, Street, City, Prov." required><br><br>
+        <input type="text" name="location" id="location" data-role="none" placeholder="# Street, City, Prov." required><br><br>
             
-            <b>New Phone Number:</b><br>
-        <input type="tel" name="pNumber" id="pNumber" data-role="none" placeholder="+1-(ddd)-(ddd)-(dddd)" required><br><br> 
-            
-        <b>New Password:<p id="passw_error"></p></b>
+        <b>New Phone Number:<span id="pNumber_error"></span> </b><br>
+        <input type="text" name="pNumber" id="pNumber" data-role="none" maxlength="10" placeholder="Phone Number ex:3061110000" required><br><br> 
+        
+        <b>New Password:<span id="passw_error"></span></b><br>
         <input type="password" name="passw" id="passw" data-role="none" maxlength="6" placeholder="Password" required>
+       
         <br>
-            
-            <b>Confirm New Password: <p id="passconf_error"></p></b>
+        <b>Confirm Password:<span id="passconf_error"></span> </b><br>
         <input type="password" name="passconf" id="passconf" data-role="none" maxlength="6" placeholder="Confirm Password" required><br><br>
         
+        
         <input type="checkbox" name="checkBox" id="checkBox" data-role="none" required>
-        <b>I am over 18 years old and I agree on the terms of use.
+        <b>I am over 18 years old and I agree on the terms of use.</b>
         <br><br>
                                               <legend></legend>
 

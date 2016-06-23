@@ -70,7 +70,6 @@
 		margin: auto;
 		width: 1200px;
         display: table;
-        position: relative;
         
 	}
 	.Scontainer
@@ -177,7 +176,7 @@
 	
 
 	.boxB
-	{   /* Project  form */
+	{   /* Project homepage form */
         font-family: 'Open Sans','Source Sans Pro', 'sans-serif';
 		border-radius: 5px;
         background-color: #f2f2f2;
@@ -189,7 +188,7 @@
 	}
 
 	.VehicleBox
-	{   /* Project  form */
+	{   /* Project homepage form */
         font-family: 'Open Sans','Source Sans Pro', 'sans-serif';
 		border-radius: 5px;
         background-color: #f2f2f2;
@@ -201,15 +200,13 @@
 	}
 
     .ResvBox
-	{   /* Project  form */
+	{   /* Project homepage form */
         font-family: 'Open Sans','Source Sans Pro', 'sans-serif';
 		border-radius: 5px;
         background-color: #f2f2f2;
         padding: 20px;
 		width: 500px;
         border: 1px solid #56A028;
-        position: relative; 
-        bottom: 0;
         /*   or #ccc */
 	}
 
@@ -478,3 +475,25 @@
 .down{
   color:red;
 }
+
+/*********************************************************************************/
+/* Contact Form                                                                  */
+/*********************************************************************************/
+
+#contact{
+    position: fixed;
+    transition: all 1s ease;
+    right: 10px;
+    bottom: 0px;
+    max-height: 100px;
+    opacity: 0.5;
+    max-width: 300px;
+
+}
+
+#contact:hover{
+    max-height: 9999px;
+    transition: all 0.5s ease;
+        opacity: 1;
+}
+
