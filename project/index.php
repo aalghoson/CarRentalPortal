@@ -2,10 +2,11 @@
 include 'head.php';
 
 ?>
-    
+
 <div id="featured" class="container">
-    
+
     <div class="boxB">
+             <a href="browse.php" class="btn btn-default btn-lg" data-role="none">View Vehicles</a>  
         
     <h4 class="Rform">Rent A Car</h4>
                                   <legend></legend>
@@ -54,6 +55,7 @@ include 'head.php';
         <option>19</option>
         <option>18</option>
         </select> <br><br>
+
         
          Choose a return location:<br>
         <select id="returnLoc" name="returnLoc" data-role="none">
@@ -63,7 +65,7 @@ include 'head.php';
             <option>600 1st Avenue, Saskatoon, SK</option>
         </select><br><br>
                           <legend></legend>
-
+		<b>* You are expected to present your official ID when picking-up this vehicle.</b><br>
         <input type="submit" class="btn btn-success" name="Reserve" data-role="none" value="Reserve Now"/>   
         <input type="reset" class="btn btn-info" value="Reset" data-role="none">
     </form>
@@ -86,7 +88,7 @@ they can input confirmation number and their email
     <h4 class="Rform">I already have a reservation</h4>
                                   <legend></legend>
 
-    <form action="view2.php" method="POST" name="check" id="check" enctype="multipart/form-data" class="centerform">
+    <form action="view_reservation.php" method="POST" name="check" id="check" enctype="multipart/form-data" class="centerform">
         
     Email:<input type="email" id="resv_email" name="resv_email" data-role="none" placeholder="example@email.com" required> <br>
     Confirmation Code:<input type="text" id="code" name="code" data-role="none" placeholder="your confirmation code" required><br><br>
@@ -101,6 +103,7 @@ they can input confirmation number and their email
                                       <legend></legend>
 
     <img src="img/limo.png" class="img-responsive"><br>
+    
     
 </div>
         

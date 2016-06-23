@@ -4,7 +4,6 @@ include 'head.php';
 
 // user should be logged in to view this page
 
-
 ?>
         <?php include 'includes/print.php';?>
 

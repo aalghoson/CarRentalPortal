@@ -18,7 +18,11 @@ if (!$conn) {
 
 if(isset($_POST["Signup"]))
 {
-    
+	if (!$conn) {
+		die("Connection failed: " . mysqli_connect_error());
+		echo '<META HTTP-EQUIV="Refresh" Content="3; URL=signup.php">';
+	}
+	
     ?>
         <div class="alert alert-success">
          <h4 class="Rform">New user registeration</h4> 
@@ -34,23 +38,23 @@ if(isset($_POST["Signup"]))
 	$pass = mysqli_real_escape_string($conn, $_POST["passw"]);
     //$DateOfBirth = mysqli_real_escape_string($conn, $_POST["DOB"]);
 	$phone = mysqli_real_escape_string($conn, $_POST["pNumber"]);
-	//$user_location = mysqli_real_escape_string($conn, $_POST["user_location"]);
+	$user_address = mysqli_real_escape_string($conn, $_POST["address"]);
 
     
     
     
     // check if duplicate email exists on db
     
-
-    $sql_check = $conn->query("SELECT * from person where `email` = '$email'");
+    $sql_check = $conn->query("SELECT * from person where email = '$email'");
     
     $result = $conn->query($sql_check);
        
     if(!$row = mysqli_fetch_array($sql_check)) 
     {
-        $sql = $conn->query("INSERT INTO person (`fname`, `lname`, `email`, `password`, `phone`) 
-        VALUES('$fName', '$lName', '$email', '$pass', $phone')");
-    
+        $sql = $conn->query("INSERT INTO person (`fname`,`lname`,`email`,`password`,`phone`,`address`) 
+        VALUES('$fName', '$lName', '$email', '$pass','$phone', '$user_address')");
+ 
+
     } 
     else 
     {
@@ -72,19 +76,23 @@ if(isset($_POST["Signup"]))
       
 <?php
     
-	if($sql){
-		echo "<b>Registeration Completed...Redirecting!</b> <br>";
-		header( "refresh:0;url=index.php" );
-	}
-	else
-	{
-		echo "An error occured...Redirecting! <br>";
-		header("refresh:3;url=signup.php");
-	}
+
+if($sql){
+	echo "<b>Registeration Completed...Redirecting!</b> <br>";
+	echo '<META HTTP-EQUIV="Refresh" Content="3; URL=index.php">';
+}else
+{
+	echo "An error occured in sql! <br>";
+	header("refresh:3;url=signup.php");
+	//    header("refresh:3;url=signup.php");
+
+}
     
-    
+	mysqli_close($conn);
+	
     // end of if
 }
+
         
 else if(isset($_POST["Change"]))
 {
@@ -119,11 +127,24 @@ else if(isset($_POST["Change"]))
             echo '<META HTTP-EQUIV="Refresh" Content="3; URL=index.php">';
 
 		header( "refresh:0;url=index.php" );
+		?>
+		
+		If you have not been redirected in 3 seconds, click
+    	         <a href='index.php'>here</a> 
+    	         
+		
+		<?php
 	}
 	else
 	{
         echo "<b>Your account information cannot be updated at this time</b><br>";
-    
+        ?>
+        		
+        		If you have not been redirected in 3 seconds, click
+            	         <a href='index.php'>here</a> 
+            	         
+        		
+        		<?php
 		header("refresh:3;url=index.php");
 	}
     
@@ -136,7 +157,13 @@ else if(isset($_POST["Change"]))
         </div>
         <?php
         header("refresh:3;url=signup.php");
-    
+        ?>
+        		
+        		If you have not been redirected in 3 seconds, click
+            	         <a href='index.php'>here</a> 
+            	         
+        		
+        		<?php
     }
         
 

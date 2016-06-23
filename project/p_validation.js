@@ -36,3 +36,31 @@ function vpass(event) {
         error.innerHTML = "";
     }
 }
+
+//----------------
+
+
+//------------------
+// validating phone input
+function phone(event) {
+    'use strict';
+    var phone = event.currentTarget;
+    var error = document.getElementById(phone.id + "_error");
+    var empty = phone.value;
+    var phoneno = empty.search(/^\d{10}$/);
+    
+    
+    if (empty === null || empty === "") {
+        error.innerHTML = "Enter your phone number";
+        error.className = "error";
+    } else {
+        if (phoneno === -1) {
+            error.innerHTML = "Please enter a valid 10-digit phone number";
+            error.className = "error";
+        } else {
+            error.innerHTML = "";
+        }
+    }
+}
+
+//----------

@@ -1,0 +1,77 @@
+log
+
+
+
+june 20th
+
+
+
+
+
++validation for phone num
+
++add guest function to view the vehicles
+
++adding managment functions : 
+1.Reservations :create delete,cancel reservations from db
+2. Vehicles: insert,delete vehicles for db
+-----------------
+june 19th
+
+-added a account type column to person table.. some users will have admin privileges. however default value is member which is the default value for clients
+mysql> alter table person add column account_type varchar(20) NOT NULL DEFAULT 'member';
+
+-----------
+
+reservation
++-------------------+--------------+------+-----+-------------------+-----------------------------+
+| Field             | Type         | Null | Key | Default           | Extra                       |
++-------------------+--------------+------+-----+-------------------+-----------------------------+
+| resv_id           | int(11)      | NO   | PRI | NULL              | auto_increment              |
+| user_id           | int(11)      | NO   | MUL | NULL              |                             |
+| resv_vehicle_id   | int(11)      | NO   | MUL | NULL              |                             |
+| pick_location     | varchar(255) | NO   |     | NULL              |                             |
+| return_location   | varchar(255) | NO   |     | NULL              |                             |
+| pick_date         | varchar(255) | YES  |     | NULL              |                             |
+| return_date       | varchar(255) | YES  |     | NULL              |                             |
+| pick_time         | varchar(255) | NO   |     | NULL              |                             |
+| return_time       | varchar(255) | NO   |     | NULL              |                             |
+| confirmation_code | varchar(255) | NO   |     | NULL              |                             |
+| date_created      | timestamp    | NO   |     | CURRENT_TIMESTAMP | on update CURRENT_TIMESTAMP |
+| status            | varchar(10)  | NO   |     | active            |                             |
++-------------------+--------------+------+-----+-------------------+-----------------------------+
+
+
+--------------------
+person
++--------------+--------------+------+-----+---------+----------------+
+| Field        | Type         | Null | Key | Default | Extra          |
++--------------+--------------+------+-----+---------+----------------+
+| user_id      | int(11)      | NO   | PRI | NULL    | auto_increment |
+| fname        | varchar(255) | NO   |     | NULL    |                |
+| lname        | varchar(255) | NO   |     | NULL    |                |
+| email        | varchar(255) | NO   |     | NULL    |                |
+| password     | varchar(11)  | NO   |     | NULL    |                |
+| phone        | varchar(11)  | NO   |     | NULL    |                |
+| address      | tinytext     | NO   |     | NULL    |                |
+| rating       | int(11)      | NO   |     | 0       |                |
+| account_type | varchar(20)  | NO   |     | member  |                |
++--------------+--------------+------+-----+---------+----------------+
+9 rows in set (0.00 sec)
+
+------------
+June 18th
+
+1- altered reservation table.. 
+
+-added a timestamp column to log the time of each reservation
+
+mysql> alter table reservation add column date_created timestamp;
+
+-added a status column to indicate if the order is still active or cancelled, the column value will be active by default. unless the client cancels the reservation
+mysql> alter table reservation add column status varchar(10) NOT NULL;
+
+alter table reservation modify column status varchar(10) NOT NULL DEFAULT 'active';
+
+
+
